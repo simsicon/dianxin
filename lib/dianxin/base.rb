@@ -8,24 +8,20 @@ module Dianxin
     end
     
     def sms(message)
-      encrypt('2011082221303200001515', @key)
+      encrypt(message, @key)
     end
 
   private
   
-    def string_to_hex
-      
-    end
-  
     def encrypt(message, key)
       key = Base64.decode64(key)
       puts key
-      cipher = OpenSSL::Cipher::Cipher.new("des-ede3-cbc")
+      cipher = OpenSSL::Cipher::Cipher.new("des3")
       cipher.encrypt # Call this before setting key or iv
       cipher.key = @key
+      cipher.iv = '01234'
       ciphertext = cipher.update(message)
       ciphertext << cipher.final
-      
       encodedCipherText = Base64.encode64(ciphertext)
 
       puts encodedCipherText
