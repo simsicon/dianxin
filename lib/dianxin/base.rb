@@ -8,7 +8,8 @@ module Dianxin
     end
     
     def sms(message)
-      encrypt(message, @key)
+      encrypt(Time.now.strftime('%Y%m%d%H%M%S')+@apid, @key)
+      #do something with the message.
     end
 
   private
@@ -19,7 +20,7 @@ module Dianxin
       cipher = OpenSSL::Cipher::Cipher.new("des3")
       cipher.encrypt # Call this before setting key or iv
       cipher.key = @key
-      cipher.iv = '01234'
+      # cipher.iv = '01234'
       ciphertext = cipher.update(message)
       ciphertext << cipher.final
       encodedCipherText = Base64.encode64(ciphertext)
