@@ -1,6 +1,5 @@
-
 require 'openssl'
-require 'Base64'
+require 'base64'
 
 module Dianxin
   # Your code goes here...
