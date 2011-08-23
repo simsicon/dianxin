@@ -14,7 +14,7 @@ module Dianxin
       params['params']                    = {}
       params['params']['TimeStamp']       = timestamp
       params['params']['APID']            = @apid
-      params['params']['Key']             = encrypt(timestamp+@apid, @key);
+      params['params']['Key']             = encrypt('2011082321580600001515', @key);
       params['params']['Num']             = number
       params['params']['Msg']             = message
       params['params']['IsReport']        = '0'
@@ -36,16 +36,28 @@ module Dianxin
     def encrypt(message, key)
       key = Base64.decode64(key)
       puts key
+      detect_encoding(key)
       cipher = OpenSSL::Cipher::Cipher.new("des-ede3")
       cipher.encrypt # Call this before setting key or iv
       cipher.key = @key
-      # cipher.iv = '01234'
       ciphertext = cipher.update(message)
       ciphertext << cipher.final
-      encodedCipherText = Base64.encode64(ciphertext).gsub!(/[\n]+/, "")
-
+      detect_encoding(ciphertext)
+      encodedCipherText = Base64.encode64(ciphertext).gsub!(/[\n]+/, "").toutf8
+      detect_encoding(encodedCipherText)
       puts "ENCODED: " + encodedCipherText
       encodedCipherText
+    end
+  
+    def detect_encoding(string)
+      @e = UniversalDetector::chardet(string)
+      puts @e.inspect
+      @e
+    end
+    
+    def reencode(string, to, from)
+      str = Iconv.new(to, from).iconv(string)
+      str
     end
   
     def perform_post(path, options={})
