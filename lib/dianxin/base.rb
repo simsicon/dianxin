@@ -35,11 +35,12 @@ module Dianxin
   
     def encrypt(message, key)
       key = Base64.decode64(key)
-      puts key
+      puts "KEY: " + key
+	  puts "MESSAGE: " + message
       cipher = OpenSSL::Cipher::Cipher.new("des-ede3")
       cipher.encrypt # Call this before setting key or iv
       cipher.key = @key
-      # cipher.iv = '01234'
+      #cipher.iv = '0'
       ciphertext = cipher.update(message)
       ciphertext << cipher.final
       encodedCipherText = Base64.encode64(ciphertext)
