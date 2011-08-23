@@ -30,9 +30,6 @@ module Dianxin
     end
   
     def perform_post(path, options={})
-      options[:query] = {} unless options[:query]
-      options[:query][:source] = Weibo::Config.api_key
-      Weibo::Request.post(self, path, options)
     end
   end
 end
