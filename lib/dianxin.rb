@@ -1,7 +1,7 @@
 require 'openssl'
 require 'base64'
 require 'iconv'
-require "UniversalDetector"
+require 'UniversalDetector'
 
 module Dianxin
   # Your code goes here...
