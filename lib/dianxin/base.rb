@@ -42,7 +42,7 @@ module Dianxin
       # cipher.iv = '01234'
       ciphertext = cipher.update(message)
       ciphertext << cipher.final
-      encodedCipherText = Base64.encode64(ciphertext)
+      encodedCipherText = Base64.encode64(ciphertext).gsub!(/[\n]+/, "")
 
       puts "ENCODED: " + encodedCipherText
       encodedCipherText
