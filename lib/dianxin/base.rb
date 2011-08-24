@@ -39,14 +39,9 @@ module Dianxin
 	  puts "MESSAGE: " + message
       cipher = OpenSSL::Cipher::Cipher.new("des-ede3")
       cipher.encrypt # Call this before setting key or iv
-      cipher.key = @key
-      #cipher.iv = '0'
-      ciphertext = cipher.update(message)
-      ciphertext << cipher.final
-      encodedCipherText = Base64.encode64(ciphertext).gsub!(/[\n]+/, "")
-
-      puts "ENCODED: " + encodedCipherText
-      encodedCipherText
+      cipher.key = key
+      ciphertext = cipher.update(message) + cipher.final
+      Base64.encode64(ciphertext)
     end
   
     def perform_post(path, options={})
