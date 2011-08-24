@@ -19,4 +19,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.add_dependency('rest-client', '>= 1.6.6')
+  s.add_dependency('yajl-ruby', '>= 0.8.3')
+  
 end

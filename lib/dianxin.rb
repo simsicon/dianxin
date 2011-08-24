@@ -1,5 +1,7 @@
 require 'openssl'
 require 'base64'
+require 'rest_client'
+require 'yajl'
 
 module Dianxin
   # Your code goes here...

@@ -15,7 +15,7 @@ module Dianxin
       params['params']['TimeStamp']       = timestamp
       params['params']['APID']            = @apid
       params['params']['Key']             = encrypt(timestamp+@apid, @key);
-      params['params']['Num']             = number
+      params['params']['Num']             = number.to_s
       params['params']['Msg']             = message
       params['params']['IsReport']        = '0'
       params['params']['StatusReportUrl'] = 'http://114.80.110.16'
@@ -26,9 +26,9 @@ module Dianxin
       params['params']['Parm2']           = @product_id
       params['params']['Parm3']           = "56"
       
-      puts params.inspect
-      
-      #do something with the message.
+      response = RestClient.post "http://125.64.11.43:8080/udt-see/StartServiceServlet", encode_json(params), :content_type => :json, :accept => :json
+      decoded_response = decode_json(response.to_s)
+      puts decoded_response.inspect
     end
 
   private
@@ -41,8 +41,15 @@ module Dianxin
       ciphertext = cipher.update(message) + cipher.final
       Base64.encode64(ciphertext).gsub(/\n/, '')
     end
-  
-    def perform_post(path, options={})
+    
+    def encode_json(params)
+      Yajl::Encoder.encode(params)
+    end
+    
+    def decode_json(response)
+      parser = Yajl::Parser.new
+      hash = parser.parse(response)
+      hash
     end
   end
 end
