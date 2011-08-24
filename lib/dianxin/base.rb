@@ -41,7 +41,7 @@ module Dianxin
       cipher.encrypt # Call this before setting key or iv
       cipher.key = key
       ciphertext = cipher.update(message) + cipher.final
-      Base64.encode64(ciphertext)
+      Base64.encode64(ciphertext).gsub(/\n/, '')
     end
   
     def detect_encoding(string)
