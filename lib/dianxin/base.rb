@@ -44,17 +44,6 @@ module Dianxin
       Base64.encode64(ciphertext).gsub(/\n/, '')
     end
   
-    def detect_encoding(string)
-      @e = UniversalDetector::chardet(string)
-      puts @e.inspect
-      @e
-    end
-    
-    def reencode(string, to, from)
-      str = Iconv.new(to, from).iconv(string)
-      str
-    end
-  
     def perform_post(path, options={})
     end
   end
