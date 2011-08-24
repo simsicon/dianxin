@@ -14,7 +14,7 @@ module Dianxin
       params['params']                    = {}
       params['params']['TimeStamp']       = timestamp
       params['params']['APID']            = @apid
-      params['params']['Key']             = encrypt('2011082321580600001515', @key);
+      params['params']['Key']             = encrypt(timestamp+@apid, @key);
       params['params']['Num']             = number
       params['params']['Msg']             = message
       params['params']['IsReport']        = '0'
